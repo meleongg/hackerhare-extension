@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HackerHare — full threat suite</title>
+  </head>
+  <body>
+    <h1>Full threat suite</h1>
+    <p>
+      Combines insecure password (on load) and suspicious form (on submit). With
+      shielding + alerts on, expect up to <strong>two</strong> threat increments
+      (one per detection type).
+    </p>
+
+    <section>
+      <h2>Mock login (HTTP password)</h2>
+      <form action="/login" method="post">
+        <label>
+          Password
+          <input type="password" name="password" />
+        </label>
+      </form>
+    </section>
+
+    <section>
+      <h2>Mock sensitive survey</h2>
+      <form action="http://fake-secure-login.example/submit" method="post">
+        <label>
+          SSN
+          <input type="text" name="social-security" />
+        </label>
+        <button type="submit">Submit sensitive data</button>
+      </form>
+      <p id="leak" aria-live="polite"></p>
+    </section>
+
+    <script>
+      document.querySelectorAll("form")[1].addEventListener("submit", () => {
+        document.getElementById("leak").textContent =
+          "Sensitive form submitted — shield did not block."
+      })
+    </script>
+    <p><a href="index.html">Back to index</a></p>
+  </body>
+</html>

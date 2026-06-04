@@ -9,7 +9,8 @@
     "build": "plasmo build",
     "package": "plasmo package",
     "format": "prettier --write --no-error-on-unmatched-pattern \"popup.tsx\" \"components/**/*.{ts,tsx}\" \"contents/**/*.{ts,tsx}\"",
-    "icon:generate": "node scripts/generate-icon.mjs"
+    "icon:generate": "node scripts/generate-icon.mjs",
+    "test:pages": "npx --yes serve test-pages -p 8080"
   },
   "dependencies": {
     "@plasmohq/storage": "^1.15.0",

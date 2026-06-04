@@ -16,6 +16,16 @@ You can start editing the popup by modifying `popup.tsx`. It should auto-update 
 
 For further guidance, [visit our Documentation](https://docs.plasmo.com/)
 
+## Manual heuristic tests
+
+Serve local HTTP fixtures (password-on-HTTP, suspicious forms):
+
+```bash
+pnpm test:pages
+```
+
+Open http://localhost:8080/ and follow [test-pages/README.md](test-pages/README.md).
+
 ## Making production build
 
 Run the following:

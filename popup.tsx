@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { LogoShield } from "~components/icons/LogoShield"
@@ -21,6 +23,17 @@ function IndexPopup() {
     v === undefined ? 0 : v
   )
 
+  const handleFormShieldingChange = (enabled: boolean) => {
+    setFormShielding(enabled)
+    if (!enabled) setInsecureInputAlerts(false)
+  }
+
+  useEffect(() => {
+    if (!formShielding && insecureInputAlerts) {
+      setInsecureInputAlerts(false)
+    }
+  }, [formShielding, insecureInputAlerts, setInsecureInputAlerts])
+
   return (
     <div className="relative w-[360px] min-h-[480px] bg-bg-primary font-sans text-text-primary">
       <div
@@ -28,20 +41,26 @@ function IndexPopup() {
         aria-hidden
       />
       <div className="relative z-10 space-y-4 p-4">
-        <header className="flex items-center justify-between gap-2">
-          <div className="flex shrink-0 items-center gap-2">
-            <LogoShield size={32} />
-            <span className="truncate text-sm font-semibold text-text-primary">
+        <header className="flex items-center gap-2.5">
+          <LogoShield size={32} className="shrink-0" />
+          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="truncate font-brand text-lg font-bold leading-none tracking-wide text-text-primary">
               HackerHare
             </span>
-          </div>
-          <div className="flex shrink-0 items-center gap-2">
-            <span className="font-mono text-xs text-text-muted">
-              v{VERSION}
-            </span>
-            <span className="rounded-full border border-card-border bg-bg-secondary px-2 py-1 font-mono text-[10px] tracking-wider text-text-status uppercase shadow-[0_0_8px_rgba(255,244,145,0.4)]">
-              Agent: Active
-            </span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-mono text-xs text-text-muted">
+                v{VERSION}
+              </span>
+              <span
+                className={`shrink-0 rounded-full border border-card-border bg-bg-secondary px-2 py-1 font-mono text-[10px] tracking-wider uppercase ${
+                  formShielding
+                    ? "text-text-status shadow-[0_0_8px_rgba(255,244,145,0.4)]"
+                    : "text-text-muted"
+                }`}
+                aria-live="polite">
+                {formShielding ? "Agent: Active" : "Agent: Standby"}
+              </span>
+            </div>
           </div>
         </header>
 
@@ -58,24 +77,45 @@ function IndexPopup() {
         </section>
 
         <section className="rounded-xl border border-card-border bg-bg-secondary p-4">
-          <div className="flex items-center justify-between py-2">
-            <span className="text-sm text-text-primary">Form Shielding</span>
+          <div className="flex items-center justify-between gap-3 py-2">
+            <div className="min-w-0">
+              <span className="text-sm text-text-primary">Form Shielding</span>
+              <p className="mt-0.5 text-xs leading-snug text-text-muted">
+                Master switch: blocks risky form submits on pages you visit.
+              </p>
+            </div>
             <ToggleSwitch
               checked={formShielding}
               label="Form Shielding"
-              onChange={setFormShielding}
+              onChange={handleFormShieldingChange}
             />
           </div>
-          <div className="flex items-center justify-between py-2">
-            <span className="text-sm text-text-primary">
-              Insecure Input Alerts
-            </span>
+          <div
+            className={`flex items-center justify-between gap-3 border-t border-card-border py-2 ${
+              formShielding ? "" : "opacity-60"
+            }`}>
+            <div className="min-w-0">
+              <span className="text-sm text-text-primary">
+                Insecure Input Alerts
+              </span>
+              <p className="mt-0.5 text-xs leading-snug text-text-muted">
+                Warns on HTTP pages with password fields. Requires Form
+                Shielding.
+              </p>
+            </div>
             <ToggleSwitch
               checked={insecureInputAlerts}
+              disabled={!formShielding}
               label="Insecure Input Alerts"
               onChange={setInsecureInputAlerts}
             />
           </div>
+          {!formShielding ? (
+            <p className="border-t border-card-border pt-2 text-xs leading-relaxed text-text-muted">
+              Protection is paused. Turn Form Shielding on to scan pages again;
+              you can then enable Insecure Input Alerts.
+            </p>
+          ) : null}
         </section>
       </div>
     </div>

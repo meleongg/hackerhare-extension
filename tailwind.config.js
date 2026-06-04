@@ -41,6 +41,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        brand: ['Syncopate', 'system-ui', 'sans-serif'],
         mono: ['Space Mono', 'ui-monospace', 'monospace'],
       },
     },
