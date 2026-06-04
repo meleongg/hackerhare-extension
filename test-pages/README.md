@@ -1,6 +1,6 @@
 # HackerHare manual test fixtures
 
-These pages exercise the offline heuristics in [`contents/shield.ts`](../contents/shield.ts).
+These pages exercise the on-device heuristics in [`contents/shield.ts`](../contents/shield.ts).
 
 **Important:** `checkInsecureInputs()` only runs when the page URL is real **`http:`**. Opening HTML via `file://` will **not** trigger it (`protocol` is `file:`). Serve this folder over HTTP locally.
 
@@ -21,8 +21,8 @@ Default port is **8080** (override with `PORT=3000 pnpm test:pages`). Phishing s
 1. Load the extension (`pnpm dev` or production build).
 2. In the popup: **Form Shielding** on (master). Enable child toggles per test below.
 3. Turning **Form Shielding** off cascades all child toggles off.
-4. After reloading the extension, **hard-refresh** the test tab.
-5. Use the **page** DevTools console and filter by `HackerHare`.
+4. **Anonymous global counter** is off by default; turn it on only to test telemetry POSTs.
+5. After reloading the extension, **hard-refresh** the test tab.
 
 To reset the threat counter: Popup, or DevTools → Application → Extension storage → clear `threat-count`.
 
@@ -61,7 +61,7 @@ Pages **04** and **05** pick the correct fake hostname automatically from the fi
 1. Reload the extension in `chrome://extensions`, then **hard-refresh** the tab (`Cmd+Shift+R`). `pnpm dev` rebuilds often cause **Extension context invalidated** on tabs that were already open.
 2. Confirm the URL is **`http://localhost:…`** (or `127.0.0.1`) from `pnpm test:pages` — not `file://` (password + phishing checks need HTTP).
 3. Popup: **Form Shielding** on (master). Turn on the child toggles you are testing.
-4. DevTools → Console → filter `HackerHare`. You should see `HackerHare Shield Active on this domain` on load.
+4. For telemetry: enable **Anonymous global counter**, then check Network for `metrics/increment` after a threat.
 
 ## What each page mocks
 

@@ -30,6 +30,10 @@ function IndexPopup() {
   const [threatCount] = useStorage("threat-count", (v) =>
     v === undefined ? 0 : v
   )
+  const [telemetryEnabled, setTelemetryEnabled] = useStorage(
+    "telemetry-enabled",
+    (v) => v === true
+  )
 
   const handleFormShieldingChange = (enabled: boolean) => {
     setFormShielding(enabled)
@@ -57,7 +61,7 @@ function IndexPopup() {
   ])
 
   return (
-    <div className="relative w-[360px] min-h-[480px] bg-bg-primary font-sans text-text-primary">
+    <div className="relative w-[360px] min-h-[520px] bg-bg-primary font-sans text-text-primary">
       <div
         className="star-field pointer-events-none absolute inset-0"
         aria-hidden
@@ -177,6 +181,25 @@ function IndexPopup() {
               Protection is paused. Turn Form Shielding on to scan pages again.
             </p>
           ) : null}
+        </section>
+
+        <section className="rounded-xl border border-card-border bg-bg-secondary p-4">
+          <div className="flex items-center justify-between gap-3 py-2">
+            <div className="min-w-0">
+              <span className="text-sm text-text-primary">
+                Anonymous global counter
+              </span>
+              <p className="mt-0.5 text-xs leading-snug text-text-muted">
+                Optional. When a threat is caught locally, send a blind ping to
+                increment a public total—no URLs, page content, or IDs.
+              </p>
+            </div>
+            <ToggleSwitch
+              checked={telemetryEnabled}
+              label="Anonymous global counter"
+              onChange={setTelemetryEnabled}
+            />
+          </div>
         </section>
       </div>
     </div>

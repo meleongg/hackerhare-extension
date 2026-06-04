@@ -85,7 +85,11 @@ function pingGlobalTelemetry(): void {
 async function incrementThreatCount() {
   const count = (await storage.get<number>("threat-count")) ?? 0
   await storage.set("threat-count", count + 1)
-  pingGlobalTelemetry()
+
+  const telemetryEnabled = await storage.get<boolean>("telemetry-enabled")
+  if (telemetryEnabled === true) {
+    pingGlobalTelemetry()
+  }
 }
 
 function whenDomReady(run: () => void) {
@@ -205,10 +209,6 @@ function scanDarkPatternsInForm(form: HTMLFormElement) {
     if (!context || !OPT_IN_KEYWORD_REGEX.test(context)) continue
 
     flaggedDarkPatternForms.add(form)
-    console.warn("[HackerHare] Deceptive pre-checked opt-in detected", {
-      form,
-      context
-    })
     void incrementThreatCount()
     showDarkPatternBanner(form)
     return
@@ -294,10 +294,6 @@ function attachFormInterceptor(form: HTMLFormElement) {
       event.preventDefault()
       event.stopPropagation()
 
-      console.warn("[HackerHare] Intercepted a suspicious submission", {
-        hostname: window.location.hostname,
-        form
-      })
       showThreatModal("suspicious-submit")
       void incrementThreatCount()
     },
@@ -404,11 +400,6 @@ function runPageScan() {
 
 function activateShield() {
   if (!currentConfig?.shieldingEnabled) return
-
-  console.log(
-    "HackerHare Shield Active on this domain",
-    window.location.hostname
-  )
 
   bindPhishingUrlListeners()
   lastPhishingUrlKey = phishingUrlKey()

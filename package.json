@@ -2,13 +2,13 @@
   "name": "hackerhare-extension",
   "displayName": "HackerHare",
   "version": "0.0.1",
-  "description": "A privacy-first shield that blocks unsafe forms and stops password leaks completely offline.",
+  "description": "Privacy-first shield with on-device heuristics. Optional anonymous counter ping—no page data sent.",
   "author": "Melvin Teo",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package",
-    "format": "prettier --write --no-error-on-unmatched-pattern \"popup.tsx\" \"components/**/*.{ts,tsx}\" \"contents/**/*.{ts,tsx}\"",
+    "format": "prettier --write --no-error-on-unmatched-pattern \"popup.tsx\" \"components/**/*.{ts,tsx}\" \"contents/**/*.{ts,tsx}\" \"lib/**/*.{ts,tsx}\"",
     "icon:generate": "node scripts/generate-icon.mjs",
     "test:pages": "npx --yes serve test-pages -p 8080"
   },

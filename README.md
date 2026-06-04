@@ -1,6 +1,6 @@
 # HackerHare
 
-A privacy-first Chrome extension that runs **offline heuristics** in the browser: it warns on risky pages, flags deceptive UI, and blocks sensitive form submissions—without sending page content or URLs to a server. A blind telemetry ping can increment a global threat counter when a local threat is verified.
+A privacy-first Chrome extension that runs **on-device heuristics** in the browser: it warns on risky pages, flags deceptive UI, and blocks sensitive form submissions without sending page content or URLs anywhere. Optionally, you can enable an **anonymous global counter**—a blind ping that increments a public total when a threat is verified locally (off by default).
 
 ## What it does
 
@@ -9,7 +9,7 @@ A privacy-first Chrome extension that runs **offline heuristics** in the browser
 - **Dark pattern alerts** — Pre-checked marketing/opt-in checkboxes near forms.
 - **Phishing alerts** — Brand-in-subdomain and typosquat hostname checks.
 
-Settings and a local **Threats Intercepted** count live in the popup.
+Settings and a local **Threats Intercepted** count live in the popup. **Anonymous global counter** (telemetry) is opt-in in the popup and sends no page data.
 
 ## Tech stack
 
@@ -28,7 +28,7 @@ pnpm dev
 ```
 
 1. Open `chrome://extensions`, enable **Developer mode**, **Load unpacked** → `build/chrome-mv3-dev`.
-2. Pin **HackerHare**, open the popup, and turn **Form Shielding** on (plus any child toggles you want to test).
+2. Pin **HackerHare**, open the popup, and turn **Form Shielding** on (plus any child toggles you want to test). Enable **Anonymous global counter** only if you want to test telemetry pings.
 
 **Manual test pages** (HTTP fixtures; must be served, not opened as `file://`):
 

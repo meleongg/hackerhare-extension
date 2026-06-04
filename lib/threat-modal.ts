@@ -194,11 +194,6 @@ export function showThreatSummaryModal(infractions: ThreatInfraction[]) {
   if (infractions.length === 0) return
   if (document.getElementById(MODAL_ROOT_ID)) return
 
-  console.warn("[HackerHare] Security issues detected", {
-    hostname: window.location.hostname,
-    infractions
-  })
-
   const body = document.createElement("div")
   body.style.cssText = [
     "margin:0",
@@ -234,11 +229,6 @@ export function showThreatSummaryModal(infractions: ThreatInfraction[]) {
 
 export function showThreatModal(variant: ThreatModalVariant) {
   const copy = VARIANT_COPY[variant]
-
-  console.warn("[HackerHare]", copy.logMessage, {
-    hostname: window.location.hostname,
-    variant
-  })
 
   if (document.getElementById(MODAL_ROOT_ID)) return
 
