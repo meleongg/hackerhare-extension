@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Utilities transferred from your landing page */
+.star-field {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff491, transparent),
+    radial-gradient(1px 1px at 80px 120px, #ffffff, transparent),
+    radial-gradient(1.5px 1.5px at 160px 60px, #fff491, transparent),
+    radial-gradient(1px 1px at 240px 180px, #ffffff, transparent),
+    radial-gradient(1px 1px at 320px 40px, #fff491, transparent);
+  background-size: 360px 220px;
+  opacity: 0.5;
+}
+
+.mascot-glow {
+  filter: drop-shadow(0 16px 32px rgb(0 0 0 / 35%));
+}
