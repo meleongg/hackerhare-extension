@@ -1,43 +1,47 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+# HackerHare
 
-## Getting Started
+A privacy-first Chrome extension that runs **offline heuristics** in the browser: it warns on risky pages, flags deceptive UI, and blocks sensitive form submissions—without sending page content or URLs to a server. A blind telemetry ping can increment a global threat counter when a local threat is verified.
 
-First, run the development server:
+## What it does
+
+- **Form shielding** — Blocks suspicious submits (e.g. sensitive fields on HTTP or deceptive hostnames).
+- **Insecure input alerts** — Password fields on non-HTTPS pages.
+- **Dark pattern alerts** — Pre-checked marketing/opt-in checkboxes near forms.
+- **Phishing alerts** — Brand-in-subdomain and typosquat hostname checks.
+
+Settings and a local **Threats Intercepted** count live in the popup.
+
+## Tech stack
+
+- [Plasmo](https://docs.plasmo.com/) (Manifest V3, React popup)
+- TypeScript, Tailwind CSS
+- [`@plasmohq/storage`](https://docs.plasmo.com/framework/storage) for extension settings
+- [`tldts`](https://github.com/remusao/tldts) for hostname / registrable-domain parsing
+
+## Getting started
+
+**Prerequisites:** Node.js 18+, [pnpm](https://pnpm.io/) (or npm).
 
 ```bash
+pnpm install
 pnpm dev
-# or
-npm run dev
 ```
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+1. Open `chrome://extensions`, enable **Developer mode**, **Load unpacked** → `build/chrome-mv3-dev`.
+2. Pin **HackerHare**, open the popup, and turn **Form Shielding** on (plus any child toggles you want to test).
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
-
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
-
-## Manual heuristic tests
-
-Serve local HTTP fixtures (password-on-HTTP, suspicious forms):
+**Manual test pages** (HTTP fixtures; must be served, not opened as `file://`):
 
 ```bash
 pnpm test:pages
 ```
 
-Open http://localhost:8080/ and follow [test-pages/README.md](test-pages/README.md).
+Open http://localhost:8080/ — see [test-pages/README.md](test-pages/README.md) for scenarios.
 
-## Making production build
-
-Run the following:
+**Production build:**
 
 ```bash
 pnpm build
-# or
-npm run build
 ```
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
-
-## Submit to the webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+Output: `build/chrome-mv3` (zip or upload for store submission).
