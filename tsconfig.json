@@ -9,6 +9,7 @@
     "./**/*.tsx"
   ],
   "compilerOptions": {
+    "resolveJsonModule": true,
     "paths": {
       "~*": [
         "./*"

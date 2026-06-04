@@ -12,6 +12,31 @@ const BRAND_FONT_SIZE = 20
 const FONT_SANS = '"Plus Jakarta Sans", system-ui, sans-serif'
 const FONT_BRAND = '"Syncopate", system-ui, sans-serif'
 
+export type ThreatInfraction = {
+  id: string
+  title: string
+  detail: string
+}
+
+export type ThreatModalVariant = "insecure-password" | "suspicious-submit"
+
+const VARIANT_COPY: Record<
+  ThreatModalVariant,
+  { title: string; body: string; logMessage: string }
+> = {
+  "insecure-password": {
+    title: "Unencrypted password detected",
+    body: "This page uses HTTP and contains a password field. Anything you type could be sent without encryption.",
+    logMessage:
+      "Unencrypted password field detected on an HTTP page. Your credentials may be exposed."
+  },
+  "suspicious-submit": {
+    title: "Suspicious submission blocked",
+    body: "HackerHare stopped a form that may expose sensitive information on an unsafe or deceptive page.",
+    logMessage: "Intercepted a suspicious submission."
+  }
+}
+
 function ensureThreatModalFonts() {
   if (document.getElementById(FONTS_STYLE_ID)) return
 
@@ -43,39 +68,14 @@ function ensureThreatModalFonts() {
   document.head.append(style)
 }
 
-export type ThreatModalVariant = "insecure-password" | "suspicious-submit"
-
-const COPY: Record<
-  ThreatModalVariant,
-  { title: string; body: string; logMessage: string }
-> = {
-  "insecure-password": {
-    title: "Unencrypted password detected",
-    body: "This page uses HTTP and contains a password field. Anything you type could be sent without encryption.",
-    logMessage:
-      "Unencrypted password field detected on an HTTP page. Your credentials may be exposed."
-  },
-  "suspicious-submit": {
-    title: "Suspicious submission blocked",
-    body: "HackerHare stopped a form that may expose sensitive information on an unsafe or deceptive page.",
-    logMessage: "Intercepted a suspicious submission."
-  }
-}
-
 function removeModal() {
   document.getElementById(MODAL_ROOT_ID)?.remove()
 }
 
-export function showThreatModal(variant: ThreatModalVariant) {
-  const copy = COPY[variant]
-
-  console.warn("[HackerHare]", copy.logMessage, {
-    hostname: window.location.hostname,
-    variant
-  })
-
-  if (document.getElementById(MODAL_ROOT_ID)) return
-
+function buildModalShell(
+  titleText: string,
+  bodyContent: HTMLElement
+): HTMLButtonElement {
   ensureThreatModalFonts()
 
   const backdrop = document.createElement("div")
@@ -113,8 +113,7 @@ export function showThreatModal(variant: ThreatModalVariant) {
     "display:flex",
     "align-items:center",
     "gap:12px",
-    "margin-bottom:12px",
-    "min-height:0"
+    "margin-bottom:12px"
   ].join(";")
 
   const bunny = document.createElement("img")
@@ -123,15 +122,8 @@ export function showThreatModal(variant: ThreatModalVariant) {
   bunny.height = RABBIT_HEIGHT
   bunny.alt = ""
   bunny.setAttribute("aria-hidden", "true")
-  bunny.style.cssText = [
-    "display:block",
-    "flex-shrink:0",
-    "width:auto",
-    "height:auto",
-    "max-height:44px",
-    "object-fit:contain",
-    "margin:0"
-  ].join(";")
+  bunny.style.cssText =
+    "display:block;flex-shrink:0;max-height:44px;object-fit:contain"
 
   const brand = document.createElement("span")
   brand.textContent = "HackerHare"
@@ -141,48 +133,32 @@ export function showThreatModal(variant: ThreatModalVariant) {
     "font-weight:700",
     "letter-spacing:0.04em",
     "color:#ebeaf8",
-    `line-height:${RABBIT_HEIGHT}px`,
-    "display:inline-flex",
-    "align-items:center",
-    "margin:0",
-    "padding:0"
+    `line-height:${RABBIT_HEIGHT}px`
   ].join(";")
 
   header.append(bunny, brand)
 
   const title = document.createElement("h2")
   title.id = "hackerhare-threat-title"
-  title.textContent = copy.title
+  title.textContent = titleText
   title.style.cssText = [
     "margin:0 0 8px",
     "font-size:18px",
     "font-weight:600",
     "line-height:1.3",
-    "color:#ebeaf8",
     `font-family:${FONT_SANS}`
   ].join(";")
 
-  const body = document.createElement("p")
-  body.id = "hackerhare-threat-body"
-  body.textContent = copy.body
-  body.style.cssText = [
-    "margin:0 0 20px",
-    "font-size:14px",
-    "font-weight:400",
-    "line-height:1.5",
-    "color:#a8b2cc",
-    `font-family:${FONT_SANS}`
-  ].join(";")
+  bodyContent.id = "hackerhare-threat-body"
 
   const actions = document.createElement("div")
-  actions.style.cssText = "display:flex;justify-content:center"
+  actions.style.cssText = "display:flex;justify-content:center;margin-top:20px"
 
   const acknowledge = document.createElement("button")
   acknowledge.type = "button"
   acknowledge.textContent = "I understand"
   acknowledge.style.cssText = [
     "display:inline-block",
-    "width:auto",
     "min-width:140px",
     "padding:10px 20px",
     "border:none",
@@ -197,14 +173,80 @@ export function showThreatModal(variant: ThreatModalVariant) {
   acknowledge.addEventListener("click", removeModal)
 
   actions.append(acknowledge)
+  dialog.append(header, title, bodyContent, actions)
+  backdrop.append(dialog)
 
   backdrop.addEventListener("click", (event) => {
     if (event.target === backdrop) removeModal()
   })
 
-  dialog.append(header, title, body, actions)
-  backdrop.append(dialog)
   document.body.append(backdrop)
-
   acknowledge.focus()
+
+  return acknowledge
+}
+
+export function showThreatSummaryModal(infractions: ThreatInfraction[]) {
+  if (infractions.length === 0) return
+  if (document.getElementById(MODAL_ROOT_ID)) return
+
+  console.warn("[HackerHare] Security issues detected", {
+    hostname: window.location.hostname,
+    infractions
+  })
+
+  const body = document.createElement("div")
+  body.style.cssText = [
+    "margin:0",
+    "font-size:14px",
+    "line-height:1.5",
+    "color:#a8b2cc",
+    `font-family:${FONT_SANS}`
+  ].join(";")
+
+  const intro = document.createElement("p")
+  intro.style.cssText = "margin:0 0 12px"
+  intro.textContent =
+    infractions.length === 1
+      ? "HackerHare found a possible risk on this page:"
+      : `HackerHare found ${infractions.length} possible risks on this page:`
+
+  const list = document.createElement("ul")
+  list.style.cssText = "margin:0;padding-left:18px"
+
+  for (const item of infractions) {
+    const li = document.createElement("li")
+    li.style.cssText = "margin-bottom:10px"
+    const strong = document.createElement("strong")
+    strong.style.color = "#ebeaf8"
+    strong.textContent = item.title
+    li.append(strong, document.createTextNode(` — ${item.detail}`))
+    list.append(li)
+  }
+
+  body.append(intro, list)
+  buildModalShell("Security issues detected", body)
+}
+
+export function showThreatModal(variant: ThreatModalVariant) {
+  const copy = VARIANT_COPY[variant]
+
+  console.warn("[HackerHare]", copy.logMessage, {
+    hostname: window.location.hostname,
+    variant
+  })
+
+  if (document.getElementById(MODAL_ROOT_ID)) return
+
+  const body = document.createElement("p")
+  body.style.cssText = [
+    "margin:0",
+    "font-size:14px",
+    "line-height:1.5",
+    "color:#a8b2cc",
+    `font-family:${FONT_SANS}`
+  ].join(";")
+  body.textContent = copy.body
+
+  buildModalShell(copy.title, body)
 }

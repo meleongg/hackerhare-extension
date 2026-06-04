@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HackerHare — phishing simulate</title>
+  </head>
+  <body>
+    <h1>Phishing check (no hosts file)</h1>
+    <p>
+      With <strong>Form Shielding</strong> and <strong>Phishing Alerts</strong> on,
+      open one of these links while <code>pnpm test:pages</code> is running:
+    </p>
+    <ul>
+      <li>
+        <a href="?simulateHost=paypal.secure-verify.test"
+          >Subdomain impersonation (PayPal)</a
+        >
+      </li>
+      <li>
+        <a href="?simulateHost=rnicrosoft.test">Typosquat (Microsoft)</a>
+      </li>
+    </ul>
+    <p>
+      The extension reads <code>simulateHost</code> only on
+      <code>localhost:8080</code> for local testing.
+    </p>
+    <p><a href="index.html">Back to index</a></p>
+  </body>
+</html>

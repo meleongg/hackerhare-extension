@@ -1,0 +1,701 @@
+[
+  {
+    "keyword": "adidas",
+    "officialApex": [
+      "adidas.com"
+    ]
+  },
+  {
+    "keyword": "adobe",
+    "officialApex": [
+      "adobe.com"
+    ]
+  },
+  {
+    "keyword": "airbnb",
+    "officialApex": [
+      "airbnb.com"
+    ]
+  },
+  {
+    "keyword": "alibaba",
+    "officialApex": [
+      "alibaba.com"
+    ]
+  },
+  {
+    "keyword": "aliexpress",
+    "officialApex": [
+      "aliexpress.com"
+    ]
+  },
+  {
+    "keyword": "amazon",
+    "officialApex": [
+      "amazon.com",
+      "amazon.co.uk",
+      "amazon.de",
+      "amazon.ca"
+    ]
+  },
+  {
+    "keyword": "americanexpress",
+    "officialApex": [
+      "americanexpress.com"
+    ]
+  },
+  {
+    "keyword": "apple",
+    "officialApex": [
+      "apple.com",
+      "icloud.com"
+    ]
+  },
+  {
+    "keyword": "asana",
+    "officialApex": [
+      "asana.com"
+    ]
+  },
+  {
+    "keyword": "atlassian",
+    "officialApex": [
+      "atlassian.com"
+    ]
+  },
+  {
+    "keyword": "bankofamerica",
+    "officialApex": [
+      "bankofamerica.com"
+    ]
+  },
+  {
+    "keyword": "bbc",
+    "officialApex": [
+      "bbc.com"
+    ]
+  },
+  {
+    "keyword": "bestbuy",
+    "officialApex": [
+      "bestbuy.com"
+    ]
+  },
+  {
+    "keyword": "binance",
+    "officialApex": [
+      "binance.com"
+    ]
+  },
+  {
+    "keyword": "bing",
+    "officialApex": [
+      "bing.com"
+    ]
+  },
+  {
+    "keyword": "bloomberg",
+    "officialApex": [
+      "bloomberg.com"
+    ]
+  },
+  {
+    "keyword": "booking",
+    "officialApex": [
+      "booking.com"
+    ]
+  },
+  {
+    "keyword": "capitalone",
+    "officialApex": [
+      "capitalone.com"
+    ]
+  },
+  {
+    "keyword": "chase",
+    "officialApex": [
+      "chase.com"
+    ]
+  },
+  {
+    "keyword": "citibank",
+    "officialApex": [
+      "citibank.com"
+    ]
+  },
+  {
+    "keyword": "cnn",
+    "officialApex": [
+      "cnn.com"
+    ]
+  },
+  {
+    "keyword": "coinbase",
+    "officialApex": [
+      "coinbase.com"
+    ]
+  },
+  {
+    "keyword": "costco",
+    "officialApex": [
+      "costco.com"
+    ]
+  },
+  {
+    "keyword": "coursera",
+    "officialApex": [
+      "coursera.org"
+    ]
+  },
+  {
+    "keyword": "craigslist",
+    "officialApex": [
+      "craigslist.org"
+    ]
+  },
+  {
+    "keyword": "discord",
+    "officialApex": [
+      "discord.com"
+    ]
+  },
+  {
+    "keyword": "discover",
+    "officialApex": [
+      "discover.com"
+    ]
+  },
+  {
+    "keyword": "disneyplus",
+    "officialApex": [
+      "disneyplus.com"
+    ]
+  },
+  {
+    "keyword": "doordash",
+    "officialApex": [
+      "doordash.com"
+    ]
+  },
+  {
+    "keyword": "dropbox",
+    "officialApex": [
+      "dropbox.com"
+    ]
+  },
+  {
+    "keyword": "duckduckgo",
+    "officialApex": [
+      "duckduckgo.com"
+    ]
+  },
+  {
+    "keyword": "duolingo",
+    "officialApex": [
+      "duolingo.com"
+    ]
+  },
+  {
+    "keyword": "ebay",
+    "officialApex": [
+      "ebay.com"
+    ]
+  },
+  {
+    "keyword": "etsy",
+    "officialApex": [
+      "etsy.com"
+    ]
+  },
+  {
+    "keyword": "expedia",
+    "officialApex": [
+      "expedia.com"
+    ]
+  },
+  {
+    "keyword": "facebook",
+    "officialApex": [
+      "facebook.com",
+      "meta.com",
+      "instagram.com",
+      "fb.com"
+    ]
+  },
+  {
+    "keyword": "fidelity",
+    "officialApex": [
+      "fidelity.com"
+    ]
+  },
+  {
+    "keyword": "flickr",
+    "officialApex": [
+      "flickr.com"
+    ]
+  },
+  {
+    "keyword": "forbes",
+    "officialApex": [
+      "forbes.com"
+    ]
+  },
+  {
+    "keyword": "github",
+    "officialApex": [
+      "github.com"
+    ]
+  },
+  {
+    "keyword": "glassdoor",
+    "officialApex": [
+      "glassdoor.com"
+    ]
+  },
+  {
+    "keyword": "gmail",
+    "officialApex": [
+      "gmail.com"
+    ]
+  },
+  {
+    "keyword": "google",
+    "officialApex": [
+      "google.com",
+      "youtube.com",
+      "gmail.com"
+    ]
+  },
+  {
+    "keyword": "grubhub",
+    "officialApex": [
+      "grubhub.com"
+    ]
+  },
+  {
+    "keyword": "hbomax",
+    "officialApex": [
+      "hbomax.com"
+    ]
+  },
+  {
+    "keyword": "homedepot",
+    "officialApex": [
+      "homedepot.com"
+    ]
+  },
+  {
+    "keyword": "hulu",
+    "officialApex": [
+      "hulu.com"
+    ]
+  },
+  {
+    "keyword": "ibm",
+    "officialApex": [
+      "ibm.com"
+    ]
+  },
+  {
+    "keyword": "icloud",
+    "officialApex": [
+      "icloud.com"
+    ]
+  },
+  {
+    "keyword": "imgur",
+    "officialApex": [
+      "imgur.com"
+    ]
+  },
+  {
+    "keyword": "indeed",
+    "officialApex": [
+      "indeed.com"
+    ]
+  },
+  {
+    "keyword": "instagram",
+    "officialApex": [
+      "instagram.com"
+    ]
+  },
+  {
+    "keyword": "intel",
+    "officialApex": [
+      "intel.com"
+    ]
+  },
+  {
+    "keyword": "jira",
+    "officialApex": [
+      "jira.com"
+    ]
+  },
+  {
+    "keyword": "khanacademy",
+    "officialApex": [
+      "khanacademy.org"
+    ]
+  },
+  {
+    "keyword": "linkedin",
+    "officialApex": [
+      "linkedin.com"
+    ]
+  },
+  {
+    "keyword": "live",
+    "officialApex": [
+      "live.com"
+    ]
+  },
+  {
+    "keyword": "lyft",
+    "officialApex": [
+      "lyft.com"
+    ]
+  },
+  {
+    "keyword": "mastercard",
+    "officialApex": [
+      "mastercard.com"
+    ]
+  },
+  {
+    "keyword": "medium",
+    "officialApex": [
+      "medium.com"
+    ]
+  },
+  {
+    "keyword": "meta",
+    "officialApex": [
+      "meta.com",
+      "facebook.com",
+      "instagram.com",
+      "fb.com"
+    ]
+  },
+  {
+    "keyword": "microsoft",
+    "officialApex": [
+      "microsoft.com",
+      "live.com",
+      "office.com",
+      "outlook.com"
+    ]
+  },
+  {
+    "keyword": "monster",
+    "officialApex": [
+      "monster.com"
+    ]
+  },
+  {
+    "keyword": "mozilla",
+    "officialApex": [
+      "mozilla.org"
+    ]
+  },
+  {
+    "keyword": "netflix",
+    "officialApex": [
+      "netflix.com"
+    ]
+  },
+  {
+    "keyword": "nike",
+    "officialApex": [
+      "nike.com"
+    ]
+  },
+  {
+    "keyword": "notion",
+    "officialApex": [
+      "notion.so"
+    ]
+  },
+  {
+    "keyword": "nvidia",
+    "officialApex": [
+      "nvidia.com"
+    ]
+  },
+  {
+    "keyword": "nytimes",
+    "officialApex": [
+      "nytimes.com"
+    ]
+  },
+  {
+    "keyword": "office",
+    "officialApex": [
+      "office.com"
+    ]
+  },
+  {
+    "keyword": "oracle",
+    "officialApex": [
+      "oracle.com"
+    ]
+  },
+  {
+    "keyword": "outlook",
+    "officialApex": [
+      "outlook.com"
+    ]
+  },
+  {
+    "keyword": "paramountplus",
+    "officialApex": [
+      "paramountplus.com"
+    ]
+  },
+  {
+    "keyword": "paypal",
+    "officialApex": [
+      "paypal.com"
+    ]
+  },
+  {
+    "keyword": "peacocktv",
+    "officialApex": [
+      "peacocktv.com"
+    ]
+  },
+  {
+    "keyword": "pinterest",
+    "officialApex": [
+      "pinterest.com"
+    ]
+  },
+  {
+    "keyword": "primevideo",
+    "officialApex": [
+      "primevideo.com"
+    ]
+  },
+  {
+    "keyword": "proton",
+    "officialApex": [
+      "proton.me"
+    ]
+  },
+  {
+    "keyword": "protonmail",
+    "officialApex": [
+      "protonmail.com"
+    ]
+  },
+  {
+    "keyword": "quora",
+    "officialApex": [
+      "quora.com"
+    ]
+  },
+  {
+    "keyword": "reddit",
+    "officialApex": [
+      "reddit.com"
+    ]
+  },
+  {
+    "keyword": "robinhood",
+    "officialApex": [
+      "robinhood.com"
+    ]
+  },
+  {
+    "keyword": "salesforce",
+    "officialApex": [
+      "salesforce.com"
+    ]
+  },
+  {
+    "keyword": "samsung",
+    "officialApex": [
+      "samsung.com"
+    ]
+  },
+  {
+    "keyword": "schwab",
+    "officialApex": [
+      "schwab.com"
+    ]
+  },
+  {
+    "keyword": "shopify",
+    "officialApex": [
+      "shopify.com"
+    ]
+  },
+  {
+    "keyword": "signal",
+    "officialApex": [
+      "signal.org"
+    ]
+  },
+  {
+    "keyword": "slack",
+    "officialApex": [
+      "slack.com"
+    ]
+  },
+  {
+    "keyword": "sony",
+    "officialApex": [
+      "sony.com"
+    ]
+  },
+  {
+    "keyword": "spotify",
+    "officialApex": [
+      "spotify.com"
+    ]
+  },
+  {
+    "keyword": "stackoverflow",
+    "officialApex": [
+      "stackoverflow.com"
+    ]
+  },
+  {
+    "keyword": "stripe",
+    "officialApex": [
+      "stripe.com"
+    ]
+  },
+  {
+    "keyword": "target",
+    "officialApex": [
+      "target.com"
+    ]
+  },
+  {
+    "keyword": "telegram",
+    "officialApex": [
+      "telegram.org"
+    ]
+  },
+  {
+    "keyword": "tiktok",
+    "officialApex": [
+      "tiktok.com"
+    ]
+  },
+  {
+    "keyword": "trello",
+    "officialApex": [
+      "trello.com"
+    ]
+  },
+  {
+    "keyword": "tumblr",
+    "officialApex": [
+      "tumblr.com"
+    ]
+  },
+  {
+    "keyword": "twitch",
+    "officialApex": [
+      "twitch.tv"
+    ]
+  },
+  {
+    "keyword": "twitter",
+    "officialApex": [
+      "twitter.com"
+    ]
+  },
+  {
+    "keyword": "uber",
+    "officialApex": [
+      "uber.com"
+    ]
+  },
+  {
+    "keyword": "udemy",
+    "officialApex": [
+      "udemy.com"
+    ]
+  },
+  {
+    "keyword": "vanguard",
+    "officialApex": [
+      "vanguard.com"
+    ]
+  },
+  {
+    "keyword": "visa",
+    "officialApex": [
+      "visa.com"
+    ]
+  },
+  {
+    "keyword": "walmart",
+    "officialApex": [
+      "walmart.com"
+    ]
+  },
+  {
+    "keyword": "washingtonpost",
+    "officialApex": [
+      "washingtonpost.com"
+    ]
+  },
+  {
+    "keyword": "weather",
+    "officialApex": [
+      "weather.com"
+    ]
+  },
+  {
+    "keyword": "wellsfargo",
+    "officialApex": [
+      "wellsfargo.com"
+    ]
+  },
+  {
+    "keyword": "whatsapp",
+    "officialApex": [
+      "whatsapp.com"
+    ]
+  },
+  {
+    "keyword": "wikipedia",
+    "officialApex": [
+      "wikipedia.org"
+    ]
+  },
+  {
+    "keyword": "wordpress",
+    "officialApex": [
+      "wordpress.com"
+    ]
+  },
+  {
+    "keyword": "yahoo",
+    "officialApex": [
+      "yahoo.com"
+    ]
+  },
+  {
+    "keyword": "yelp",
+    "officialApex": [
+      "yelp.com"
+    ]
+  },
+  {
+    "keyword": "youtube",
+    "officialApex": [
+      "youtube.com"
+    ]
+  },
+  {
+    "keyword": "zoom",
+    "officialApex": [
+      "zoom.us"
+    ]
+  }
+]
