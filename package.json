@@ -1,6 +1,6 @@
 {
   "name": "hackerhare-extension",
-  "displayName": "Hackerhare extension",
+  "displayName": "HackerHare",
   "version": "0.0.1",
   "description": "A privacy-first shield that blocks unsafe forms and stops password leaks completely offline.",
   "author": "Melvin Teo",
@@ -12,6 +12,7 @@
     "icon:generate": "node scripts/generate-icon.mjs"
   },
   "dependencies": {
+    "@plasmohq/storage": "^1.15.0",
     "plasmo": "0.90.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"

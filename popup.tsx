@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useStorage } from "@plasmohq/storage/hook"
 
 import { LogoShield } from "~components/icons/LogoShield"
 import { RabbitHead } from "~components/icons/RabbitHead"
@@ -7,11 +7,19 @@ import { ToggleSwitch } from "~components/ToggleSwitch"
 import "~style.css"
 
 const VERSION = "0.0.1"
-const THREATS_INTERCEPTED = 0
 
 function IndexPopup() {
-  const [formShielding, setFormShielding] = useState(true)
-  const [insecureInputAlerts, setInsecureInputAlerts] = useState(true)
+  const [formShielding, setFormShielding] = useStorage(
+    "shielding-enabled",
+    (v) => (v === undefined ? true : v)
+  )
+  const [insecureInputAlerts, setInsecureInputAlerts] = useStorage(
+    "alerts-enabled",
+    (v) => (v === undefined ? true : v)
+  )
+  const [threatCount] = useStorage("threat-count", (v) =>
+    v === undefined ? 0 : v
+  )
 
   return (
     <div className="relative w-[360px] min-h-[480px] bg-bg-primary font-sans text-text-primary">
@@ -43,7 +51,7 @@ function IndexPopup() {
             <div>
               <p className="text-sm text-text-muted">Threats Intercepted</p>
               <p className="font-mono text-4xl font-bold text-text-primary">
-                {THREATS_INTERCEPTED}
+                {threatCount}
               </p>
             </div>
           </div>
