@@ -5,16 +5,17 @@ import { Storage } from "@plasmohq/storage"
 import {
   removeAllDarkPatternBanners,
   showDarkPatternBanner
-} from "./dark-pattern-banner"
+} from "~lib/dark-pattern-banner"
 import {
   collectPhishingMatches,
   getHostnameForPhishingCheck
-} from "./phishing-detection"
+} from "~lib/phishing-detection"
 import {
+  clearThreatModal,
   showThreatModal,
   showThreatSummaryModal,
   type ThreatInfraction
-} from "./threat-modal"
+} from "~lib/threat-modal"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
@@ -38,6 +39,8 @@ let phishingCollected = false
 let mutationObserver: MutationObserver | null = null
 let mutationObserverStarted = false
 let currentConfig: ShieldConfig | null = null
+let lastPhishingUrlKey = ""
+let phishingUrlListenersBound = false
 
 type ShieldConfig = {
   shieldingEnabled: boolean
@@ -116,8 +119,8 @@ function collectPhishingInfractions() {
       id: `phishing-${match.matchType}-${match.brand}`,
       title:
         match.matchType === "typosquat"
-          ? "Possible typosquat site"
-          : "Possible lookalike site",
+          ? `Possible ${match.brandLabel} typosquat`
+          : `Possible fake ${match.brandLabel} site`,
       detail: match.detail
     })
   }
@@ -144,7 +147,7 @@ function getCheckboxContextText(checkbox: HTMLInputElement): string {
   const id = checkbox.id
 
   if (id) {
-    const label = document.querySelector(`label[for="${CSS.escape(id)}"]`)
+    const label = document.querySelector(`label[for="${escapeSelectorId(id)}"]`)
     if (label?.textContent) chunks.push(label.textContent)
   }
 
@@ -205,6 +208,13 @@ function fieldHasSensitiveKeyword(element: Element): boolean {
   }
 
   return false
+}
+
+function escapeSelectorId(id: string): string {
+  if (typeof CSS !== "undefined" && typeof CSS.escape === "function") {
+    return CSS.escape(id)
+  }
+  return id.replace(/["\\]/g, "\\$&")
 }
 
 function formHasSensitiveFields(form: HTMLFormElement): boolean {
@@ -301,8 +311,11 @@ function teardownShield() {
     mutationObserver = null
   }
   mutationObserverStarted = false
+  lastPhishingUrlKey = ""
+  phishingUrlListenersBound = false
 
   removeAllDarkPatternBanners()
+  clearThreatModal()
 
   pageInfractions = []
   pageInfractionIds = new Set()
@@ -324,7 +337,40 @@ function startFormMutationObserver() {
   mutationObserver.observe(document.body, { childList: true, subtree: true })
 }
 
+function phishingUrlKey(): string {
+  return `${window.location.pathname}${window.location.search}${window.location.hash}`
+}
+
+function rescanIfPhishingContextChanged() {
+  if (!currentConfig?.shieldingEnabled) return
+
+  const key = phishingUrlKey()
+  if (key === lastPhishingUrlKey) return
+
+  lastPhishingUrlKey = key
+  runPageScan()
+}
+
+function bindPhishingUrlListeners() {
+  if (phishingUrlListenersBound) return
+  phishingUrlListenersBound = true
+
+  window.addEventListener("pageshow", () => {
+    rescanIfPhishingContextChanged()
+  })
+
+  window.addEventListener("hashchange", () => {
+    rescanIfPhishingContextChanged()
+  })
+
+  window.addEventListener("popstate", () => {
+    rescanIfPhishingContextChanged()
+  })
+}
+
 function runPageScan() {
+  clearThreatModal()
+
   pageInfractions = []
   pageInfractionIds = new Set()
   insecureInputCollected = false
@@ -340,6 +386,20 @@ function runPageScan() {
   void flushPageInfractions()
 }
 
+function activateShield() {
+  if (!currentConfig?.shieldingEnabled) return
+
+  console.log(
+    "HackerHare Shield Active on this domain",
+    window.location.hostname
+  )
+
+  bindPhishingUrlListeners()
+  lastPhishingUrlKey = phishingUrlKey()
+  runPageScan()
+  startFormMutationObserver()
+}
+
 async function runHeuristics() {
   const config = await getShieldConfig()
   currentConfig = config
@@ -349,15 +409,7 @@ async function runHeuristics() {
     return
   }
 
-  whenDomReady(() => {
-    console.log(
-      "HackerHare Shield Active on this domain",
-      window.location.hostname
-    )
-
-    runPageScan()
-    startFormMutationObserver()
-  })
+  whenDomReady(activateShield)
 }
 
 void runHeuristics()

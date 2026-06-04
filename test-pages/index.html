@@ -3,37 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HackerHare test fixtures</title>
+    <title>Demo environments</title>
+    <link rel="stylesheet" href="shared.css" />
     <style>
       body {
-        font-family: system-ui, sans-serif;
-        max-width: 40rem;
-        margin: 2rem auto;
-        padding: 0 1rem;
-        line-height: 1.5;
+        background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+        color: #e2e8f0;
       }
-      a {
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+      }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem;
+      }
+      .sub {
+        color: #94a3b8;
+        margin: 0 0 2rem;
+        font-size: 0.95rem;
+      }
+      .grid {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .tile {
         display: block;
-        margin: 0.5rem 0;
+        padding: 1rem 1.25rem;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        text-decoration: none;
+        color: #f1f5f9;
+        transition: background 0.15s;
       }
-      code {
-        background: #eee;
-        padding: 0.1rem 0.35rem;
-        border-radius: 4px;
+      .tile:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .tile strong {
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+      }
+      .tile span {
+        font-size: 0.8rem;
+        color: #94a3b8;
       }
     </style>
   </head>
   <body>
-    <h1>HackerHare test fixtures</h1>
-    <p>Serve this folder with <code>pnpm test:pages</code> (HTTP required).</p>
-    <nav>
-      <a href="01-clean-baseline.html">01 — Clean baseline (no threats)</a>
-      <a href="02-insecure-password.html">02 — Insecure password on HTTP</a>
-      <a href="03-suspicious-form.html">03 — Suspicious sensitive form</a>
-      <a href="04-full-threat-suite.html">04 — Full threat suite</a>
-      <a href="05-dark-pattern-opt-in.html">05 — Dark pattern opt-in</a>
-      <a href="06-phishing-simulate.html">06 — Phishing simulate (easy)</a>
-    </nav>
-    <p><a href="README.md">README</a> (open in editor) has the expected-results matrix.</p>
+    <div class="wrap">
+      <h1>Demo environments</h1>
+      <p class="sub">Local HTTP pages for product screenshots and QA.</p>
+      <nav class="grid">
+        <a class="tile" href="01-clean-baseline.html">
+          <strong>Northline Credit Union</strong>
+          <span>Newsletter signup · baseline</span>
+        </a>
+        <a class="tile" href="02-insecure-password.html">
+          <strong>Cascade Outdoor Co.</strong>
+          <span>Member sign-in</span>
+        </a>
+        <a class="tile" href="03-suspicious-form.html">
+          <strong>amazn Account Services</strong>
+          <span>Refund verification</span>
+        </a>
+        <a class="tile" href="04-full-threat-suite.html">
+          <strong>PayPai Security Center</strong>
+          <span>Full demo · all protections</span>
+        </a>
+        <a class="tile" href="05-dark-pattern-opt-in.html">
+          <strong>Pulse Audio</strong>
+          <span>Dark pattern + Pulse lookalike</span>
+        </a>
+        <a class="tile" href="06-phishing-simulate.html">
+          <strong>Microsoft account</strong>
+          <span>Sign-in · Microsoft &amp; Outlook lookalikes</span>
+        </a>
+      </nav>
+      <p class="foot" style="color: #64748b">Serve with <code style="color: #94a3b8">pnpm test:pages</code></p>
+    </div>
   </body>
 </html>

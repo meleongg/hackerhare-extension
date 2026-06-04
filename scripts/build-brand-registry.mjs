@@ -155,6 +155,22 @@ for (const domain of DOMAINS) {
   })
 }
 
+/** Demo / product-specific brands for test pages */
+const EXTRA_BRANDS = [
+  {
+    keyword: "pulse",
+    label: "Pulse Audio",
+    officialApex: ["pulseaudio.com"]
+  }
+]
+
+for (const extra of EXTRA_BRANDS) {
+  if (!seen.has(extra.keyword)) {
+    brands.push(extra)
+    seen.add(extra.keyword)
+  }
+}
+
 brands.sort((a, b) => a.keyword.localeCompare(b.keyword))
 
 const outPath = join(__dirname, "../assets/brand-registry.json")

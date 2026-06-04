@@ -489,6 +489,13 @@
     ]
   },
   {
+    "keyword": "pulse",
+    "label": "Pulse Audio",
+    "officialApex": [
+      "pulseaudio.com"
+    ]
+  },
+  {
     "keyword": "quora",
     "officialApex": [
       "quora.com"

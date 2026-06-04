@@ -3,20 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HackerHare — clean baseline</title>
+    <title>Northline Credit Union — Stay informed</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      body {
+        background: #f0f4f8;
+      }
+      .top {
+        background: #003366;
+        color: #fff;
+        padding: 1rem 1.5rem;
+      }
+      .top h1 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      .top p {
+        margin: 0.25rem 0 0;
+        font-size: 0.8rem;
+        opacity: 0.85;
+      }
+      .hero {
+        text-align: center;
+        margin-bottom: 1.25rem;
+      }
+      .hero h2 {
+        margin: 0 0 0.5rem;
+        font-size: 1.35rem;
+        color: #003366;
+      }
+      .hero p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #555;
+      }
+      .btn {
+        background: #003366;
+        color: #fff;
+      }
+    </style>
   </head>
   <body>
-    <h1>Clean baseline</h1>
-    <p>
-      HTTP page with a normal form. Expect only
-      <strong>HackerHare Shield Active</strong> in the console when shielding is on.
-    </p>
-    <form action="/noop" method="get">
-      <label>
-        Email
-        <input type="email" name="email" autocomplete="email" />
-      </label>
-      <button type="submit">Subscribe</button>
-    </form>
+    <header class="top">
+      <h1>Northline Credit Union</h1>
+      <p>Member updates &amp; community news</p>
+    </header>
+    <main class="shell">
+      <div class="card">
+        <div class="hero">
+          <h2>Get our monthly newsletter</h2>
+          <p>Rates, tips, and branch news — no spam.</p>
+        </div>
+        <form action="/noop" method="get">
+          <div class="field">
+            <label for="email">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              placeholder="you@email.com"
+            />
+          </div>
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+      <p class="foot"><a href="index.html">← Demo environments</a></p>
+    </main>
   </body>
 </html>

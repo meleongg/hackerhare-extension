@@ -5,12 +5,18 @@ import brandRegistry from "~assets/brand-registry.json"
 export type BrandEntry = {
   keyword: string
   officialApex: string[]
+  label?: string
 }
 
 export type PhishingMatch = {
   brand: string
+  brandLabel: string
   matchType: "subdomain" | "typosquat"
   detail: string
+}
+
+function brandLabel(entry: BrandEntry): string {
+  return entry.label ?? entry.keyword
 }
 
 const REGISTRY = brandRegistry as BrandEntry[]
@@ -46,10 +52,16 @@ export function levenshteinDistance(a: string, b: string): number {
   return matrix[a.length][b.length]
 }
 
-const DEV_HOST_REGEX = /^(localhost|127\.0\.0\.1)$/
+const DEV_HOST_REGEX = /^(localhost|127\.0\.0\.1|\[::1\]|::1)$/i
 const SIMULATE_HOST_PARAM = "simulateHost"
 const SIMULATED_HOST_REGEX =
   /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/i
+
+/** Per test fixture path — avoids ?simulateHost= sticking when switching demos */
+const TEST_PAGE_SIMULATE_HOST: Record<string, string> = {
+  "04-full-threat-suite.html": "paypal.secure-verify.test",
+  "05-dark-pattern-opt-in.html": "pulse-audio.secure-verify.test"
+}
 
 export function isSkippedHostname(hostname: string): boolean {
   const host = hostname.toLowerCase().replace(/\.$/, "")
@@ -59,26 +71,52 @@ export function isSkippedHostname(hostname: string): boolean {
 }
 
 /**
- * On local test server (localhost:8080), ?simulateHost=paypal.secure-verify.test
- * runs phishing checks without editing /etc/hosts.
+ * On local test server (localhost / 127.0.0.1), ?simulateHost= or per-page
+ * defaults run phishing checks without editing /etc/hosts.
  */
+function simulateHostForTestPage(): string | null {
+  const segments = window.location.pathname.split("/").filter(Boolean)
+  const pageName = segments[segments.length - 1] ?? ""
+  return TEST_PAGE_SIMULATE_HOST[pageName] ?? null
+}
+
+function simulateHostFromHash(): string | null {
+  const hashRaw = window.location.hash.replace(/^#/, "").trim()
+  if (!hashRaw) return null
+
+  if (hashRaw.includes("=")) {
+    return (
+      new URLSearchParams(hashRaw)
+        .get(SIMULATE_HOST_PARAM)
+        ?.trim()
+        .toLowerCase() ?? null
+    )
+  }
+
+  const bare = hashRaw.toLowerCase()
+  return SIMULATED_HOST_REGEX.test(bare) ? bare : null
+}
+
+function simulateHostFromQuery(): string | null {
+  return (
+    new URLSearchParams(window.location.search)
+      .get(SIMULATE_HOST_PARAM)
+      ?.trim()
+      .toLowerCase() ?? null
+  )
+}
+
 export function getHostnameForPhishingCheck(): string {
   const actual = window.location.hostname.toLowerCase()
   if (!DEV_HOST_REGEX.test(actual)) return window.location.hostname
 
-  const port = window.location.port
-  if (port !== "8080" && port !== "") return window.location.hostname
+  const pageDefault = simulateHostForTestPage()
+  if (pageDefault && SIMULATED_HOST_REGEX.test(pageDefault)) return pageDefault
 
-  const simulated = new URLSearchParams(window.location.search)
-    .get(SIMULATE_HOST_PARAM)
-    ?.trim()
-    .toLowerCase()
+  const fromUrl = simulateHostFromHash() ?? simulateHostFromQuery()
+  if (fromUrl && SIMULATED_HOST_REGEX.test(fromUrl)) return fromUrl
 
-  if (!simulated || !SIMULATED_HOST_REGEX.test(simulated)) {
-    return window.location.hostname
-  }
-
-  return simulated
+  return window.location.hostname
 }
 
 function apexSetForBrand(entry: BrandEntry): Set<string> {
@@ -126,10 +164,12 @@ export function detectBrandSubdomainPhishing(
     for (const segment of segments) {
       if (!segmentMatchesBrand(segment, entry.keyword)) continue
 
+      const label = brandLabel(entry)
       return {
         brand: entry.keyword,
+        brandLabel: label,
         matchType: "subdomain",
-        detail: `"${entry.keyword}" appears in the subdomain, but this site is "${registrableDomain}".`
+        detail: `This page may be impersonating ${label}. The URL uses a misleading subdomain, but the real domain is "${registrableDomain}" — not an official ${label} site.`
       }
     }
   }
@@ -150,8 +190,8 @@ export function detectTyposquatPhishing(
   const registrableDomain = getDomain(hostname, { allowPrivateDomains: true })
   if (!registrableDomain) return null
 
-  const label = registrableLabel(registrableDomain)
-  if (label.length < MIN_TYPOSQUAT_LENGTH) return null
+  const hostLabel = registrableLabel(registrableDomain)
+  if (hostLabel.length < MIN_TYPOSQUAT_LENGTH) return null
 
   for (const entry of REGISTRY) {
     const apexSet = apexSetForBrand(entry)
@@ -160,13 +200,15 @@ export function detectTyposquatPhishing(
     const keyword = entry.keyword.toLowerCase()
     if (keyword.length < MIN_TYPOSQUAT_LENGTH) continue
 
-    const distance = levenshteinDistance(label, keyword)
+    const distance = levenshteinDistance(hostLabel, keyword)
     if (distance === 0 || distance > MAX_LEVENSHTEIN) continue
 
+    const displayLabel = brandLabel(entry)
     return {
       brand: entry.keyword,
+      brandLabel: displayLabel,
       matchType: "typosquat",
-      detail: `This site's domain "${registrableDomain}" closely resembles "${keyword}" but is not official.`
+      detail: `This site's domain "${registrableDomain}" closely resembles ${displayLabel} but is not an official ${displayLabel} domain.`
     }
   }
 

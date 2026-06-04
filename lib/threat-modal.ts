@@ -68,8 +68,12 @@ function ensureThreatModalFonts() {
   document.head.append(style)
 }
 
-function removeModal() {
+export function clearThreatModal() {
   document.getElementById(MODAL_ROOT_ID)?.remove()
+}
+
+function removeModal() {
+  clearThreatModal()
 }
 
 function buildModalShell(
