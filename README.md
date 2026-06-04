@@ -45,3 +45,10 @@ pnpm build
 ```
 
 Output: `build/chrome-mv3` (zip or upload for store submission).
+
+## Chrome Web Store permissions
+
+| Permission | Why |
+|------------|-----|
+| **Access to all websites** (`<all_urls>` content script) | Run on-device heuristics on pages you visit (forms, passwords, phishing hostname checks). Analysis stays in the browser; no page content is sent to our servers. |
+| **hackerhare.vercel.app** (host permission) | Only used when you opt in to **Anonymous global counter**: a blind `POST` to increment a public total. No URLs or page data in the request. |
