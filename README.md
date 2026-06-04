@@ -11,6 +11,10 @@ A privacy-first Chrome extension that runs **on-device heuristics** in the brows
 
 Settings and a local **Threats Intercepted** count live in the popup. **Anonymous global counter** (telemetry) is opt-in in the popup and sends no page data.
 
+## Origins
+
+This project grew out of **[StormHacks 2024](https://github.com/DonaldKLee/Stormhacks-2024)**—the original hackathon repo built with Donald, Tracy, and Tracy. This extension takes inspiration from that prototype and iterates on it with a Plasmo/TypeScript rewrite, on-device phishing and dark-pattern detection, and an optional anonymous global counter.
+
 ## Tech stack
 
 - [Plasmo](https://docs.plasmo.com/) (Manifest V3, React popup)
@@ -48,7 +52,7 @@ Output: `build/chrome-mv3` (zip or upload for store submission).
 
 ## Chrome Web Store permissions
 
-| Permission | Why |
-|------------|-----|
+| Permission                                               | Why                                                                                                                                                              |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Access to all websites** (`<all_urls>` content script) | Run on-device heuristics on pages you visit (forms, passwords, phishing hostname checks). Analysis stays in the browser; no page content is sent to our servers. |
-| **hackerhare.vercel.app** (host permission) | Only used when you opt in to **Anonymous global counter**: a blind `POST` to increment a public total. No URLs or page data in the request. |
+| **hackerhare.vercel.app** (host permission)              | Only used when you opt in to **Anonymous global counter**: a blind `POST` to increment a public total. No URLs or page data in the request.                      |
