@@ -7,6 +7,10 @@ import {
   showDarkPatternBanner
 } from "~lib/dark-pattern-banner"
 import {
+  isContextInvalidatedError,
+  isExtensionContextValid
+} from "~lib/extension-context"
+import {
   collectPhishingMatches,
   getHostnameForPhishingCheck
 } from "~lib/phishing-detection"
@@ -52,21 +56,28 @@ type ShieldConfig = {
   phishingAlertsEnabled: boolean
 }
 
-async function getShieldConfig(): Promise<ShieldConfig> {
-  const shieldingEnabled = await storage.get<boolean>("shielding-enabled")
-  const alertsEnabled = await storage.get<boolean>("alerts-enabled")
-  const darkPatternsEnabled = await storage.get<boolean>(
-    "dark-patterns-enabled"
-  )
-  const phishingAlertsEnabled = await storage.get<boolean>(
-    "phishing-alerts-enabled"
-  )
+async function getShieldConfig(): Promise<ShieldConfig | null> {
+  if (!isExtensionContextValid()) return null
 
-  return {
-    shieldingEnabled: shieldingEnabled !== false,
-    alertsEnabled: alertsEnabled !== false,
-    darkPatternsEnabled: darkPatternsEnabled !== false,
-    phishingAlertsEnabled: phishingAlertsEnabled !== false
+  try {
+    const shieldingEnabled = await storage.get<boolean>("shielding-enabled")
+    const alertsEnabled = await storage.get<boolean>("alerts-enabled")
+    const darkPatternsEnabled = await storage.get<boolean>(
+      "dark-patterns-enabled"
+    )
+    const phishingAlertsEnabled = await storage.get<boolean>(
+      "phishing-alerts-enabled"
+    )
+
+    return {
+      shieldingEnabled: shieldingEnabled !== false,
+      alertsEnabled: alertsEnabled !== false,
+      darkPatternsEnabled: darkPatternsEnabled !== false,
+      phishingAlertsEnabled: phishingAlertsEnabled !== false
+    }
+  } catch (error) {
+    if (isContextInvalidatedError(error)) return null
+    throw error
   }
 }
 
@@ -83,12 +94,19 @@ function pingGlobalTelemetry(): void {
 }
 
 async function incrementThreatCount() {
-  const count = (await storage.get<number>("threat-count")) ?? 0
-  await storage.set("threat-count", count + 1)
+  if (!isExtensionContextValid()) return
 
-  const telemetryEnabled = await storage.get<boolean>("telemetry-enabled")
-  if (telemetryEnabled === true) {
-    pingGlobalTelemetry()
+  try {
+    const count = (await storage.get<number>("threat-count")) ?? 0
+    await storage.set("threat-count", count + 1)
+
+    const telemetryEnabled = await storage.get<boolean>("telemetry-enabled")
+    if (telemetryEnabled === true) {
+      pingGlobalTelemetry()
+    }
+  } catch (error) {
+    if (isContextInvalidatedError(error)) return
+    throw error
   }
 }
 
@@ -408,7 +426,11 @@ function activateShield() {
 }
 
 async function runHeuristics() {
+  if (!isExtensionContextValid()) return
+
   const config = await getShieldConfig()
+  if (!config) return
+
   currentConfig = config
 
   if (!config.shieldingEnabled) {
@@ -419,19 +441,25 @@ async function runHeuristics() {
   whenDomReady(activateShield)
 }
 
-void runHeuristics()
+function watchShieldSettings() {
+  if (!isExtensionContextValid()) return
 
-storage.watch({
-  "shielding-enabled": () => {
-    void runHeuristics()
-  },
-  "alerts-enabled": () => {
-    void runHeuristics()
-  },
-  "dark-patterns-enabled": () => {
-    void runHeuristics()
-  },
-  "phishing-alerts-enabled": () => {
+  const onSettingChange = () => {
+    if (!isExtensionContextValid()) return
     void runHeuristics()
   }
-})
+
+  try {
+    storage.watch({
+      "shielding-enabled": onSettingChange,
+      "alerts-enabled": onSettingChange,
+      "dark-patterns-enabled": onSettingChange,
+      "phishing-alerts-enabled": onSettingChange
+    })
+  } catch (error) {
+    if (!isContextInvalidatedError(error)) throw error
+  }
+}
+
+void runHeuristics()
+watchShieldSettings()
