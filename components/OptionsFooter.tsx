@@ -4,7 +4,7 @@ import {
   HACKERHARE_TERMS_URL
 } from "~lib/site-links"
 
-const VERSION = "0.0.1"
+const VERSION = "0.0.2"
 
 type OptionsFooterProps = {
   className?: string

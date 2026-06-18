@@ -13,7 +13,7 @@ import {
 
 import "~style.css"
 
-const VERSION = "0.0.1"
+const VERSION = "0.0.2"
 
 function IndexPopup() {
   const [formShielding, setFormShielding] = useStorage(

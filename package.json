@@ -1,7 +1,7 @@
 {
   "name": "hackerhare-extension",
   "displayName": "HackerHare",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Privacy-first shield with on-device heuristics. Optional anonymous counter ping—no page data sent.",
   "author": "Melvin Teo",
   "scripts": {
@@ -35,6 +35,8 @@
     "typescript": "5.3.3"
   },
   "manifest": {
-    "host_permissions": ["https://hackerhare.vercel.app/*"]
+    "host_permissions": [
+      "https://hackerhare.vercel.app/*"
+    ]
   }
 }
