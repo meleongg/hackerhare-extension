@@ -5,6 +5,11 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { LogoShield } from "~components/icons/LogoShield"
 import { RabbitHead } from "~components/icons/RabbitHead"
 import { ToggleSwitch } from "~components/ToggleSwitch"
+import { openExtensionOptions } from "~lib/open-options"
+import {
+  PHISHING_WHITELIST_STORAGE_KEY,
+  sanitizeUserWhitelist
+} from "~lib/phishing-whitelist"
 
 import "~style.css"
 
@@ -34,6 +39,14 @@ function IndexPopup() {
     "telemetry-enabled",
     (v) => v === true
   )
+  const [phishingWhitelist] = useStorage<string[]>(
+    PHISHING_WHITELIST_STORAGE_KEY,
+    (v) => sanitizeUserWhitelist(v)
+  )
+
+  const openTrustedSitesSettings = () => {
+    openExtensionOptions()
+  }
 
   const handleFormShieldingChange = (enabled: boolean) => {
     setFormShielding(enabled)
@@ -61,7 +74,7 @@ function IndexPopup() {
   ])
 
   return (
-    <div className="relative w-[360px] min-h-[520px] bg-bg-primary font-sans text-text-primary">
+    <div className="popup-shell relative w-[360px] min-h-[520px] bg-bg-primary font-sans text-text-primary">
       <div
         className="star-field pointer-events-none absolute inset-0"
         aria-hidden
@@ -180,6 +193,25 @@ function IndexPopup() {
             <p className="border-t border-card-border pt-2 text-xs leading-relaxed text-text-muted">
               Protection is paused. Turn Form Shielding on to scan pages again.
             </p>
+          ) : null}
+
+          {formShielding && phishingAlerts ? (
+            <div className="flex items-center justify-between gap-3 border-t border-card-border pt-3">
+              <p className="text-xs leading-snug text-text-muted">
+                {phishingWhitelist.length === 0
+                  ? "No trusted sites yet."
+                  : `${phishingWhitelist.length} trusted ${
+                      phishingWhitelist.length === 1 ? "site" : "sites"
+                    }.`}{" "}
+                Manage exceptions from alerts or settings.
+              </p>
+              <button
+                type="button"
+                onClick={openTrustedSitesSettings}
+                className="shrink-0 text-xs font-semibold text-text-primary underline decoration-text-muted underline-offset-2 transition hover:text-rocket-orange">
+                Manage
+              </button>
+            </div>
           ) : null}
         </section>
 

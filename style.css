@@ -47,10 +47,33 @@
   body {
     margin: 0;
     padding: 0;
-    width: 360px;
-    min-width: 360px;
     overflow-x: hidden;
   }
+}
+
+.popup-shell {
+  width: 360px;
+  min-width: 360px;
+}
+
+.options-shell {
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+.options-star-field {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff491, transparent),
+    radial-gradient(1px 1px at 80px 120px, #ffffff, transparent),
+    radial-gradient(1.5px 1.5px at 160px 60px, #fff491, transparent),
+    radial-gradient(1px 1px at 240px 180px, #ffffff, transparent),
+    radial-gradient(1px 1px at 320px 40px, #fff491, transparent),
+    radial-gradient(1px 1px at 480px 90px, #ffffff, transparent),
+    radial-gradient(1.5px 1.5px at 640px 140px, #fff491, transparent),
+    radial-gradient(1px 1px at 800px 50px, #ffffff, transparent);
+  background-size: 900px 280px;
+  opacity: 0.45;
 }
 
 /* Custom Utilities transferred from your landing page */

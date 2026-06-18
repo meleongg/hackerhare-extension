@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./popup.tsx",
+    "./options.tsx",
     "./contents/**/*.{ts,tsx}",
     "./tabs/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}"

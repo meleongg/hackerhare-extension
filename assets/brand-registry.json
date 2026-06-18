@@ -18,6 +18,12 @@
     ]
   },
   {
+    "keyword": "aircanada",
+    "officialApex": [
+      "aircanada.com"
+    ]
+  },
+  {
     "keyword": "alibaba",
     "officialApex": [
       "alibaba.com"
@@ -35,13 +41,20 @@
       "amazon.com",
       "amazon.co.uk",
       "amazon.de",
-      "amazon.ca"
+      "amazon.ca",
+      "amazonaws.com"
     ]
   },
   {
     "keyword": "americanexpress",
     "officialApex": [
       "americanexpress.com"
+    ]
+  },
+  {
+    "keyword": "anthropic",
+    "officialApex": [
+      "anthropic.com"
     ]
   },
   {
@@ -61,6 +74,12 @@
     "keyword": "atlassian",
     "officialApex": [
       "atlassian.com"
+    ]
+  },
+  {
+    "keyword": "bandcamp",
+    "officialApex": [
+      "bandcamp.com"
     ]
   },
   {
@@ -106,6 +125,12 @@
     ]
   },
   {
+    "keyword": "canva",
+    "officialApex": [
+      "canva.com"
+    ]
+  },
+  {
     "keyword": "capitalone",
     "officialApex": [
       "capitalone.com"
@@ -118,9 +143,28 @@
     ]
   },
   {
+    "keyword": "chatgpt",
+    "officialApex": [
+      "chatgpt.com",
+      "openai.com"
+    ]
+  },
+  {
     "keyword": "citibank",
     "officialApex": [
       "citibank.com"
+    ]
+  },
+  {
+    "keyword": "claude",
+    "officialApex": [
+      "claude.ai"
+    ]
+  },
+  {
+    "keyword": "cloudflare",
+    "officialApex": [
+      "cloudflare.com"
     ]
   },
   {
@@ -151,6 +195,30 @@
     "keyword": "craigslist",
     "officialApex": [
       "craigslist.org"
+    ]
+  },
+  {
+    "keyword": "crunchyroll",
+    "officialApex": [
+      "crunchyroll.com"
+    ]
+  },
+  {
+    "keyword": "cvs",
+    "officialApex": [
+      "cvs.com"
+    ]
+  },
+  {
+    "keyword": "delta",
+    "officialApex": [
+      "delta.com"
+    ]
+  },
+  {
+    "keyword": "dhl",
+    "officialApex": [
+      "dhl.com"
     ]
   },
   {
@@ -202,6 +270,18 @@
     ]
   },
   {
+    "keyword": "epicgames",
+    "officialApex": [
+      "epicgames.com"
+    ]
+  },
+  {
+    "keyword": "espn",
+    "officialApex": [
+      "espn.com"
+    ]
+  },
+  {
     "keyword": "etsy",
     "officialApex": [
       "etsy.com"
@@ -223,9 +303,21 @@
     ]
   },
   {
+    "keyword": "fedex",
+    "officialApex": [
+      "fedex.com"
+    ]
+  },
+  {
     "keyword": "fidelity",
     "officialApex": [
       "fidelity.com"
+    ]
+  },
+  {
+    "keyword": "figma",
+    "officialApex": [
+      "figma.com"
     ]
   },
   {
@@ -259,6 +351,12 @@
     ]
   },
   {
+    "keyword": "goodreads",
+    "officialApex": [
+      "goodreads.com"
+    ]
+  },
+  {
     "keyword": "google",
     "officialApex": [
       "google.com",
@@ -273,9 +371,21 @@
     ]
   },
   {
+    "keyword": "hbo",
+    "officialApex": [
+      "hbo.com"
+    ]
+  },
+  {
     "keyword": "hbomax",
     "officialApex": [
       "hbomax.com"
+    ]
+  },
+  {
+    "keyword": "hilton",
+    "officialApex": [
+      "hilton.com"
     ]
   },
   {
@@ -300,6 +410,12 @@
     "keyword": "icloud",
     "officialApex": [
       "icloud.com"
+    ]
+  },
+  {
+    "keyword": "imdb",
+    "officialApex": [
+      "imdb.com"
     ]
   },
   {
@@ -333,9 +449,33 @@
     ]
   },
   {
+    "keyword": "kayak",
+    "officialApex": [
+      "kayak.com"
+    ]
+  },
+  {
     "keyword": "khanacademy",
     "officialApex": [
       "khanacademy.org"
+    ]
+  },
+  {
+    "keyword": "kickstarter",
+    "officialApex": [
+      "kickstarter.com"
+    ]
+  },
+  {
+    "keyword": "last",
+    "officialApex": [
+      "last.fm"
+    ]
+  },
+  {
+    "keyword": "linear",
+    "officialApex": [
+      "linear.app"
     ]
   },
   {
@@ -357,15 +497,33 @@
     ]
   },
   {
+    "keyword": "marriott",
+    "officialApex": [
+      "marriott.com"
+    ]
+  },
+  {
     "keyword": "mastercard",
     "officialApex": [
       "mastercard.com"
     ]
   },
   {
+    "keyword": "max",
+    "officialApex": [
+      "max.com"
+    ]
+  },
+  {
     "keyword": "medium",
     "officialApex": [
       "medium.com"
+    ]
+  },
+  {
+    "keyword": "mercadolibre",
+    "officialApex": [
+      "mercadolibre.com"
     ]
   },
   {
@@ -383,7 +541,20 @@
       "microsoft.com",
       "live.com",
       "office.com",
-      "outlook.com"
+      "outlook.com",
+      "microsoftonline.com"
+    ]
+  },
+  {
+    "keyword": "minecraft",
+    "officialApex": [
+      "minecraft.net"
+    ]
+  },
+  {
+    "keyword": "mlb",
+    "officialApex": [
+      "mlb.com"
     ]
   },
   {
@@ -399,15 +570,39 @@
     ]
   },
   {
+    "keyword": "nba",
+    "officialApex": [
+      "nba.com"
+    ]
+  },
+  {
     "keyword": "netflix",
     "officialApex": [
       "netflix.com"
     ]
   },
   {
+    "keyword": "nextdoor",
+    "officialApex": [
+      "nextdoor.com"
+    ]
+  },
+  {
+    "keyword": "nfl",
+    "officialApex": [
+      "nfl.com"
+    ]
+  },
+  {
     "keyword": "nike",
     "officialApex": [
       "nike.com"
+    ]
+  },
+  {
+    "keyword": "nintendo",
+    "officialApex": [
+      "nintendo.com"
     ]
   },
   {
@@ -435,6 +630,13 @@
     ]
   },
   {
+    "keyword": "openai",
+    "officialApex": [
+      "openai.com",
+      "chatgpt.com"
+    ]
+  },
+  {
     "keyword": "oracle",
     "officialApex": [
       "oracle.com"
@@ -453,6 +655,12 @@
     ]
   },
   {
+    "keyword": "patreon",
+    "officialApex": [
+      "patreon.com"
+    ]
+  },
+  {
     "keyword": "paypal",
     "officialApex": [
       "paypal.com"
@@ -468,6 +676,12 @@
     "keyword": "pinterest",
     "officialApex": [
       "pinterest.com"
+    ]
+  },
+  {
+    "keyword": "playstation",
+    "officialApex": [
+      "playstation.com"
     ]
   },
   {
@@ -502,15 +716,45 @@
     ]
   },
   {
+    "keyword": "rakuten",
+    "officialApex": [
+      "rakuten.com"
+    ]
+  },
+  {
+    "keyword": "realtor",
+    "officialApex": [
+      "realtor.com"
+    ]
+  },
+  {
     "keyword": "reddit",
     "officialApex": [
       "reddit.com"
     ]
   },
   {
+    "keyword": "redfin",
+    "officialApex": [
+      "redfin.com"
+    ]
+  },
+  {
     "keyword": "robinhood",
     "officialApex": [
       "robinhood.com"
+    ]
+  },
+  {
+    "keyword": "roblox",
+    "officialApex": [
+      "roblox.com"
+    ]
+  },
+  {
+    "keyword": "rottentomatoes",
+    "officialApex": [
+      "rottentomatoes.com"
     ]
   },
   {
@@ -532,9 +776,16 @@
     ]
   },
   {
+    "keyword": "shein",
+    "officialApex": [
+      "shein.com"
+    ]
+  },
+  {
     "keyword": "shopify",
     "officialApex": [
-      "shopify.com"
+      "shopify.com",
+      "myshopify.com"
     ]
   },
   {
@@ -556,6 +807,18 @@
     ]
   },
   {
+    "keyword": "soundcloud",
+    "officialApex": [
+      "soundcloud.com"
+    ]
+  },
+  {
+    "keyword": "southwest",
+    "officialApex": [
+      "southwest.com"
+    ]
+  },
+  {
     "keyword": "spotify",
     "officialApex": [
       "spotify.com"
@@ -568,9 +831,21 @@
     ]
   },
   {
+    "keyword": "steam",
+    "officialApex": [
+      "steam.com"
+    ]
+  },
+  {
     "keyword": "stripe",
     "officialApex": [
       "stripe.com"
+    ]
+  },
+  {
+    "keyword": "substack",
+    "officialApex": [
+      "substack.com"
     ]
   },
   {
@@ -586,6 +861,12 @@
     ]
   },
   {
+    "keyword": "temu",
+    "officialApex": [
+      "temu.com"
+    ]
+  },
+  {
     "keyword": "tiktok",
     "officialApex": [
       "tiktok.com"
@@ -595,6 +876,12 @@
     "keyword": "trello",
     "officialApex": [
       "trello.com"
+    ]
+  },
+  {
+    "keyword": "tripadvisor",
+    "officialApex": [
+      "tripadvisor.com"
     ]
   },
   {
@@ -628,15 +915,51 @@
     ]
   },
   {
+    "keyword": "united",
+    "officialApex": [
+      "united.com"
+    ]
+  },
+  {
+    "keyword": "ups",
+    "officialApex": [
+      "ups.com"
+    ]
+  },
+  {
+    "keyword": "usps",
+    "officialApex": [
+      "usps.com"
+    ]
+  },
+  {
     "keyword": "vanguard",
     "officialApex": [
       "vanguard.com"
     ]
   },
   {
+    "keyword": "vercel",
+    "officialApex": [
+      "vercel.com"
+    ]
+  },
+  {
     "keyword": "visa",
     "officialApex": [
       "visa.com"
+    ]
+  },
+  {
+    "keyword": "vrbo",
+    "officialApex": [
+      "vrbo.com"
+    ]
+  },
+  {
+    "keyword": "walgreens",
+    "officialApex": [
+      "walgreens.com"
     ]
   },
   {
@@ -682,6 +1005,12 @@
     ]
   },
   {
+    "keyword": "xbox",
+    "officialApex": [
+      "xbox.com"
+    ]
+  },
+  {
     "keyword": "yahoo",
     "officialApex": [
       "yahoo.com"
@@ -697,6 +1026,12 @@
     "keyword": "youtube",
     "officialApex": [
       "youtube.com"
+    ]
+  },
+  {
+    "keyword": "zillow",
+    "officialApex": [
+      "zillow.com"
     ]
   },
   {

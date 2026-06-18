@@ -15,6 +15,11 @@ import {
   getHostnameForPhishingCheck
 } from "~lib/phishing-detection"
 import {
+  getRegistrableDomain,
+  PHISHING_WHITELIST_STORAGE_KEY,
+  sanitizeUserWhitelist
+} from "~lib/phishing-whitelist"
+import {
   clearThreatModal,
   showThreatModal,
   showThreatSummaryModal,
@@ -48,6 +53,7 @@ let mutationObserverStarted = false
 let currentConfig: ShieldConfig | null = null
 let lastPhishingUrlKey = ""
 let phishingUrlListenersBound = false
+let userPhishingWhitelist: string[] = []
 
 type ShieldConfig = {
   shieldingEnabled: boolean
@@ -132,6 +138,42 @@ function queuePageInfraction(infraction: ThreatInfraction) {
   pageInfractions.push(infraction)
 }
 
+async function loadPhishingWhitelist(): Promise<string[]> {
+  if (!isExtensionContextValid()) return []
+
+  try {
+    const raw = await storage.get<string[]>(PHISHING_WHITELIST_STORAGE_KEY)
+    return sanitizeUserWhitelist(raw)
+  } catch (error) {
+    if (isContextInvalidatedError(error)) return []
+    throw error
+  }
+}
+
+async function addPhishingWhitelistForCurrentSite(): Promise<void> {
+  if (!isExtensionContextValid()) return
+
+  const domain = getRegistrableDomain(getHostnameForPhishingCheck())
+  if (!domain) return
+
+  try {
+    const list = await loadPhishingWhitelist()
+    if (list.includes(domain)) {
+      userPhishingWhitelist = list
+      phishingCollected = true
+      return
+    }
+
+    const next = sanitizeUserWhitelist([...list, domain])
+    await storage.set(PHISHING_WHITELIST_STORAGE_KEY, next)
+    userPhishingWhitelist = next
+    phishingCollected = true
+  } catch (error) {
+    if (isContextInvalidatedError(error)) return
+    throw error
+  }
+}
+
 async function flushPageInfractions() {
   if (pageInfractions.length === 0) return
 
@@ -143,7 +185,18 @@ async function flushPageInfractions() {
     await incrementThreatCount()
   }
 
-  showThreatSummaryModal(batch)
+  const hasPhishing = batch.some((item) => item.id.startsWith("phishing-"))
+  const domain = getRegistrableDomain(getHostnameForPhishingCheck())
+
+  showThreatSummaryModal(batch, {
+    trustSiteLabel: domain ? `Trust ${domain}` : "Trust this site",
+    onTrustSite:
+      hasPhishing && domain
+        ? () => {
+            void addPhishingWhitelistForCurrentSite()
+          }
+        : undefined
+  })
 }
 
 function collectPhishingInfractions() {
@@ -151,7 +204,9 @@ function collectPhishingInfractions() {
   phishingCollected = true
 
   const hostname = getHostnameForPhishingCheck()
-  const matches = collectPhishingMatches(hostname)
+  const matches = collectPhishingMatches(hostname, {
+    userWhitelist: userPhishingWhitelist
+  })
   for (const match of matches) {
     queuePageInfraction({
       id: `phishing-${match.matchType}-${match.brand}`,
@@ -410,10 +465,13 @@ function runPageScan() {
     removeAllDarkPatternBanners()
   }
 
-  collectPhishingInfractions()
-  scanFormStructures()
-  collectInsecureInputInfraction()
-  void flushPageInfractions()
+  void (async () => {
+    userPhishingWhitelist = await loadPhishingWhitelist()
+    collectPhishingInfractions()
+    scanFormStructures()
+    collectInsecureInputInfraction()
+    await flushPageInfractions()
+  })()
 }
 
 function activateShield() {
@@ -454,7 +512,8 @@ function watchShieldSettings() {
       "shielding-enabled": onSettingChange,
       "alerts-enabled": onSettingChange,
       "dark-patterns-enabled": onSettingChange,
-      "phishing-alerts-enabled": onSettingChange
+      "phishing-alerts-enabled": onSettingChange,
+      [PHISHING_WHITELIST_STORAGE_KEY]: onSettingChange
     })
   } catch (error) {
     if (!isContextInvalidatedError(error)) throw error

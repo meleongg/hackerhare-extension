@@ -1,6 +1,10 @@
 import { getDomain, getSubdomain } from "tldts"
 
 import brandRegistry from "~assets/brand-registry.json"
+import {
+  isAnyBrandOfficialSite,
+  isPhishingWhitelisted
+} from "~lib/phishing-whitelist"
 
 export type BrandEntry = {
   keyword: string
@@ -186,6 +190,7 @@ export function detectTyposquatPhishing(
   hostname: string
 ): PhishingMatch | null {
   if (isSkippedHostname(hostname)) return null
+  if (isAnyBrandOfficialSite(hostname)) return null
 
   const registrableDomain = getDomain(hostname, { allowPrivateDomains: true })
   if (!registrableDomain) return null
@@ -215,7 +220,14 @@ export function detectTyposquatPhishing(
   return null
 }
 
-export function collectPhishingMatches(hostname: string): PhishingMatch[] {
+export function collectPhishingMatches(
+  hostname: string,
+  options?: { userWhitelist?: string[] }
+): PhishingMatch[] {
+  if (isPhishingWhitelisted(hostname, options?.userWhitelist ?? [])) {
+    return []
+  }
+
   const matches: PhishingMatch[] = []
   const seen = new Set<string>()
 
